@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+#tTitle {
+	width:50x;
+	
+}
+#bbsTitle, #bbsContent{
+	width: 500px;
+	height: 30px;
+}
+
+#bbsContent {
+	height: 500px;
+	padding: 10px;
+	padding-top: 5px;
+}
+
+textarea {
+	resize: none;
+}
+
+.box {
+	margin: 30px;
+}
