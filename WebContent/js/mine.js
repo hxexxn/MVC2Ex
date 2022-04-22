@@ -28,6 +28,24 @@ $(function(){
 		boardRegistForm.submit();
 		
 	})
+	
+	$('#boardModiBtn').click(function(){
+
+		var boardModiForm = $('#boardModiForm');
+		
+		var bTitle = $('#bTitle').val();
+		var bContent = $('#bContent').val();
+		
+		if (bTitle == "" || bContent == "" ) {
+			alert('제목과 내용을 모두 적어주셔야 합니다.');
+			return;
+		}
+		
+		boardModiForm.submit();
+		
+	})
+	
+	
 
 
 })

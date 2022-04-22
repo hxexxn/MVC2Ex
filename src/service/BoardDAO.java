@@ -59,7 +59,9 @@ public class BoardDAO {
 			}
 		}
 	}
-
+	
+	
+	// 게시글 등록
 	public void boardInsert(String bbsTitle, String bbsContent, String bbsWriter) {
 
 		String sql = "INSERT INTO boardTBL (bTitle, bContent, bWriter) VALUES(?, ?, ?)";
@@ -74,10 +76,13 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			dbClose();
 		}
 	}
 	
-	public void boardListAll () {
+	// 게시글 목록 보기
+	public List<BoardDTO> boardListAll () {
 		
 		List<BoardDTO> bbsList = new ArrayList<BoardDTO>(); 
 		// 전체 목록을 출력해야하므로, 배열에 BoardDTO를 담는 것. 
@@ -99,12 +104,86 @@ public class BoardDAO {
 				
 				bbsList.add(dto);
 			}
-			
+			return bbsList;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			dbClose();
 		}
+		return bbsList;
 	}
+
+	public BoardDTO boardListOne(String bNo) {
+		
+		BoardDTO dto = new BoardDTO();
+		
+		String sql = "SELECT * FROM boardTBL WHERE bNo = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(bNo));
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				dto.setbNo(rs.getInt("bNo"));
+				dto.setbTitle(rs.getString("bTitle"));
+				dto.setbContent(rs.getString("bContent"));
+				dto.setbWriter(rs.getString("bWriter"));
+				dto.setbRegDate(rs.getTimestamp("bRegDate"));
+
+				return dto;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+		return dto;
+	
+		
+	}
+
+	public void boardModify(String bNo, String bTitle, String bContent) {
+		
+		String sql = "UPDATE boardTBL SET bTitle = ?, bContent = ? WHERE bNo = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bTitle);
+			pstmt.setString(2,  bContent);
+			pstmt.setString(3, bNo);
+			pstmt.executeUpdate();
+			dbClose();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+		
+	}
+
+	public void boardDelete(String bNo) {
+		
+		String sql = "DELETE FROM boardTBL WHERE bNo = ?";
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, bNo);
+			pstmt.executeUpdate();
+			dbClose();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+		
+	}
+
+
 	
 	
 	

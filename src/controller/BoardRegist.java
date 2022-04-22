@@ -16,8 +16,10 @@ public class BoardRegist extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
+		/*
+		 * request.setCharacterEncoding("utf-8");
+		 * response.setContentType("text/html; charset=utf-8");
+		 */
 		
 		String bbsTitle = request.getParameter("bbsTitle"); // 파라미터 명은 아이디값. (때에 따라 다름. 주의.)
 		String bbsContent = request.getParameter("bbsContent");
